@@ -1,0 +1,86 @@
+<div class="ticket-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="ticket-content">
+      <div class="header-left">
+        <h1>{{ isEditMode ? 'Edit Task' : 'Create New Task' }}</h1>
+      </div>
+      <div class="header-right">
+        <button
+          mat-raised-button
+          (click)="onSubmit()"
+          [disabled]="!taskForm.valid || (isEditMode && !taskForm.touched)"
+        >
+          <mat-icon>save</mat-icon>
+          {{ isEditMode ? 'Update' : 'Create' }}
+        </button>
+        <button mat-stroked-button routerLink="/dashboard">
+          <mat-icon>close</mat-icon>
+          Cancel
+        </button>
+        <button mat-stroked-button color="primary" [disabled]="!isEditMode" (click)="delete()">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+        <button mat-stroked-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div [formGroup]="taskForm" class="task-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter task title">
+      @if (taskForm.get('title')?.hasError('required')) {
+        <mat-error>
+          Title is required
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Enter task description"
+        rows="4"
+      ></textarea>
+      @if (taskForm.get('description')?.hasError('required')) {
+        <mat-error>
+          Description is required
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Assign To</mat-label>
+      <mat-select formControlName="assignedTo">
+        <mat-option value="">Select user...</mat-option>
+        @for (user of getUsers(); track user.id) {
+          <mat-option [value]="user.id">
+            {{ user.name }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (taskForm.get('assignedTo')?.hasError('required')) {
+        <mat-error>
+          Please assign to a user
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (status of getStatuses(); track status.key) {
+          <mat-option [value]="status.value">
+            {{ status.value }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

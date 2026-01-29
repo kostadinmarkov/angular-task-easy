@@ -1,0 +1,54 @@
+<div class="dashboard-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="header-content">
+      <div class="header-left">
+        <h1>{{ currentUser }}</h1>
+      </div>
+      <div class="header-right">
+        <button mat-stroked-button routerLink="/create">
+          <mat-icon>add</mat-icon>
+          New Task
+        </button>
+        <button mat-stroked-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-card class="board-content">
+    <mat-card-content class="board-container">
+      @for (column of getColumns(); track column.key) {
+        <mat-card class="board-column">
+          <mat-card-header class="column-header">
+            <mat-card-title>{{ column.value }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="tasks-list">
+            @for (task of getTasksByStatus(column.value); track task.id) {
+              <mat-card class="task-card"
+                        [routerLink]="['/edit', task.id]"
+                        tabindex="0">
+                <mat-card-header class="task-header">
+                  <mat-card-title>
+                    {{ task.title }}
+                  </mat-card-title>
+                  <mat-card-subtitle class="task-assignee">{{ getUserName(task.assignedTo) }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="task-description">
+                  {{ task.description }}
+                </mat-card-content>
+              </mat-card>
+            }
+
+            @if (getTasksByStatus(column.value).length === 0) {
+              <div class="empty-column">
+                No tasks
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

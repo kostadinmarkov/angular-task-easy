@@ -1,0 +1,90 @@
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.header-content {
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header-right {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.board-content {
+  min-height: calc(100vh - 12rem);
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.board-column {
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  min-width: 17.5rem;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tasks-list {
+  min-height: 10rem;
+}
+
+.task-card {
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.task-assignee {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.empty-column {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  padding: 2rem 0;
+}
+
+.task-description {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
